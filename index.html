@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funny Dad Jokes</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;1,500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 10px;
+    font-family: 'Montserrat',sans-serif;
+}
+body{
+    background-color: rgb(35, 36, 37);
+    color: white;
+}
+section{
+    min-height: 100vh;
+    width: 100%;
+    padding: 100px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container{
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: rgb(51, 55, 59);
+    border-radius: 8px;
+    padding: 3rem;
+    flex-direction: column;
+}
+.container p{
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 3rem;
+    text-align: justify;
+}
+button{
+    margin: 4rem;
+    width: fit-content;
+    padding: 2rem;
+    font-size: 2rem;
+    background-color: rgb(25, 28, 29);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+    </style>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="joke">
+                <p></p>
+            </div>
+            <button>Get a joke</button>
+        </div>
+    </section>
+    <script>
+        const btn = document.querySelector('button');
+const display = document.querySelector('p');
+document.addEventListener('DOMContentLoaded',getJoke);
+btn.addEventListener('click',getJoke);
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     const btn = document.querySelector('button');
+//     const display = document.querySelector('p');
+//     getJoke();
+
+//     btn.addEventListener('click',getJoke);
+// })
+async function getJoke(){
+//variables
+const btn = document.querySelector('button');
+const display = document.querySelector('.container p');
+const endPoint = 'https://icanhazdadjoke.com/';
+const init = {
+    headers: {
+        'Accept': 'application/json'
+    }
+}
+//try block
+    try {
+        const response = await fetch(endPoint,init);
+        if (!response.ok){
+            throw new Error(`HTTP error! Status: ${ response.status }`);
+        }
+        const jokeObj = await response.json();
+        const randomJoke = jokeObj.joke;
+        display.innerText = randomJoke;
+        // display.innerText = randomJoke;    
+    }
+//catch block
+    catch (err){
+        console.log(err);
+        alert('Fail to load a joke!')
+    }
+}
+
+
+
+// document.addEventListener('DOMContentLoaded',displayJoke)
+// fetch(endPoint,{headers:{'Accept':'application/json'}})
+// .then(response => {
+//     if(!response.ok){
+//         throw new Error(`HTTP error! Status: ${ response.status }`);
+//     }
+//     return response.json()
+//     .then(jokeData => {
+        
+//         let joke = jokeData.joke;
+        
+//     })
+    
+// })
+// .catch(err => {
+//     console.log(err);
+//     alert("Error");
+// })
+
+    </script>
+</body>
+
+</html>
